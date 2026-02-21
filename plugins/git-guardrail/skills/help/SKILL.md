@@ -5,8 +5,8 @@ description: git-guardrail 플러그인의 동작 방식, 차단 규칙, 우회 
 
 # git-guardrail 가이드
 
-이 플러그인은 Claude Code가 위험한 원격 Git 작업을 실행하지 못하도록 자동으로 차단합니다.
-로컬 작업은 전혀 제한하지 않습니다.
+이 플러그인은 Claude Code가 위험한 Git 작업을 실행하지 못하도록 자동으로 차단합니다.
+원격 작업(push, gh CLI)과 main/master 브랜치에서의 commit/merge를 감시합니다.
 
 ## 동작 원리
 
@@ -14,6 +14,17 @@ Bash 도구가 실행되기 전(PreToolUse) 명령어를 검사합니다.
 위험한 패턴이 감지되면 exit code 2를 반환하여 실행 자체를 차단합니다.
 
 ## 차단 규칙
+
+### 워크플로우 가드레일 (로컬)
+
+GitHub Flow를 안내하기 위해 main/master 브랜치에서의 commit과 merge를 차단합니다.
+
+| 명령어 | 브랜치 | 결과 |
+|---|---|---|
+| `git commit` | main/master | 차단 — feature 브랜치를 만들고 작업하세요 |
+| `git merge feature` | main/master | 차단 — PR을 통해 머지하세요 |
+| `git commit` | feature/* | 허용 |
+| `git merge main` | feature/* | 허용 |
 
 ### 1. Force push 차단
 
@@ -58,7 +69,8 @@ Bash 도구가 실행되기 전(PreToolUse) 명령어를 검사합니다.
 - `git checkout .` — 변경사항 되돌리기
 - `git restore .` — 변경사항 되돌리기
 - `git branch -D` — 로컬 브랜치 삭제
-- `git add`, `git commit` — staging과 커밋
+- `git add` — staging
+- `git commit` — feature 브랜치에서 허용 (main/master에서는 차단)
 - 기타 모든 로컬 git 명령어
 
 ## 차단 메시지 형식

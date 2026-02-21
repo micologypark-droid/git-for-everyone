@@ -1,6 +1,6 @@
 {
   "name": "git-guardrail",
-  "description": "위험한 원격 Git 작업을 차단합니다: force push, 보호 브랜치 직접 push, 파괴적 GitHub CLI 명령",
+  "description": "Git 가드레일 — 위험한 원격 작업 차단 + GitHub Flow 워크플로우 안내",
   "author": {
     "name": "wo-o",
     "url": "https://github.com/wo-o"
