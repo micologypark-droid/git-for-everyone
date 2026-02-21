@@ -122,14 +122,11 @@ GitHub에 로그인되어 있지 않은 경우, 사용자에게 안내하세요:
 GitHub에 로그인해야 합니다.
 
 터미널에서 아래 명령어를 직접 실행하세요:
-  gh auth login
+  gh auth login --hostname github.com --git-protocol https --web
 
-실행하면 몇 가지 선택지가 나옵니다:
-  1. "GitHub.com" 선택
-  2. 프로토콜은 "HTTPS" 선택
-  3. 인증 방법은 "Login with a web browser" 선택
-  4. 화면에 나오는 코드를 복사한 뒤 Enter
-  5. 브라우저에서 코드를 붙여넣고 인증 완료
+브라우저가 자동으로 열리고 인증 코드가 표시됩니다:
+  1. 터미널에 나오는 코드를 확인
+  2. 브라우저에서 코드를 입력하고 인증 완료
 
 완료되면 다시 /git-onboarding-setup 을 실행해주세요.
 ```
