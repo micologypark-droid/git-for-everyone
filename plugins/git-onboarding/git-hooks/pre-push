@@ -1,0 +1,19 @@
+#!/bin/sh
+
+# Prevent direct push to protected branches (main/master)
+
+while read local_ref local_sha remote_ref remote_sha; do
+  if echo "$remote_ref" | grep -qE "refs/heads/(main|master)$"; then
+    branch=$(echo "$remote_ref" | sed 's|refs/heads/||')
+    echo ""
+    echo "[BLOCKED] '$branch' 브랜치에 직접 push할 수 없습니다."
+    echo ""
+    echo "  새 브랜치를 만들어서 작업하세요:"
+    echo "    git checkout -b <브랜치-이름>"
+    echo "    git push -u origin <브랜치-이름>"
+    echo ""
+    exit 1
+  fi
+done
+
+exit 0
