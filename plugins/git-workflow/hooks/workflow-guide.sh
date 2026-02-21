@@ -31,7 +31,18 @@ block() {
 
 # git commit on main/master
 if echo "$COMMAND" | grep -qE '\bgit\s+commit\b'; then
-  block "$CURRENT_BRANCH 브랜치에서 직접 commit 불가" "feature 브랜치를 만들고 작업하세요: git checkout -b feat/my-feature"
+  echo "차단: $CURRENT_BRANCH 브랜치에서 직접 commit할 수 없습니다."
+  echo ""
+  echo "아래 순서대로 진행하세요:"
+  echo "  1. 새 브랜치를 만드세요 (변경 사항은 자동으로 유지됩니다):"
+  echo "     git checkout -b feat/<작업-설명>"
+  echo "  2. 새 브랜치에서 commit하세요:"
+  echo "     git add <파일> && git commit -m \"...\""
+  echo "  3. 원격에 push하세요:"
+  echo "     git push -u origin feat/<작업-설명>"
+  echo ""
+  echo "브랜치 이름은 사용자에게 AskUserQuestion으로 물어보세요."
+  exit 2
 fi
 
 # git merge on main/master
