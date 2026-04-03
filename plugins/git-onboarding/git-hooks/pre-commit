@@ -1,0 +1,17 @@
+#!/bin/sh
+
+# Prevent direct commits on protected branches (main/master)
+
+branch=$(git symbolic-ref --short HEAD 2>/dev/null)
+
+if [ "$branch" = "main" ] || [ "$branch" = "master" ]; then
+  echo ""
+  echo "[BLOCKED] '$branch' 브랜치에서 직접 commit할 수 없습니다."
+  echo ""
+  echo "  새 브랜치를 만들어서 작업하세요:"
+  echo "    git checkout -b feat/<작업-설명>"
+  echo ""
+  echo "  변경 사항은 새 브랜치로 자동으로 옮겨집니다."
+  echo ""
+  exit 1
+fi

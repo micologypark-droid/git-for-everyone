@@ -1,0 +1,18 @@
+{
+  "name": "git-for-everyone",
+  "description": "Git 초보자를 위한 올인원 가이드 — 설치부터 PR까지 9단계 설정, 워크플로우 안내, 팀 프로젝트 브랜치 보호",
+  "owner": {
+    "name": "wo-o",
+    "url": "https://github.com/wo-o"
+  },
+  "plugins": [
+    {
+      "name": "git-onboarding",
+      "description": "Git 초보자를 위한 올인원 가이드: 설치 ~ 설정 ~ 워크플로우 ~ 브랜치 보호까지",
+      "source": "./plugins/git-onboarding",
+      "category": "education",
+      "tags": ["git", "onboarding", "setup", "workflow", "beginner"],
+      "license": "MIT"
+    }
+  ]
+}

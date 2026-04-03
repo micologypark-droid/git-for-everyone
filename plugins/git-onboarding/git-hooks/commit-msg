@@ -1,0 +1,26 @@
+#!/bin/sh
+
+# Enforce conventional commits format
+# Valid prefixes: feat, fix, chore, docs, refactor, test, style, perf, ci, build, revert
+
+commit_msg=$(head -1 "$1")
+
+# Skip merge commits
+echo "$commit_msg" | grep -qE '^Merge ' && exit 0
+
+if ! echo "$commit_msg" | grep -qE '^(feat|fix|chore|docs|refactor|test|style|perf|ci|build|revert)(\(.+\))?!?: .+'; then
+  echo ""
+  echo "[BLOCKED] 커밋 메시지가 conventional commits 형식이 아닙니다."
+  echo ""
+  echo "  올바른 형식:"
+  echo "    feat: 새 기능 추가"
+  echo "    fix: 버그 수정"
+  echo "    docs: 문서 변경"
+  echo "    refactor: 코드 리팩토링"
+  echo "    test: 테스트 추가/수정"
+  echo "    chore: 기타 변경"
+  echo ""
+  echo "  현재 메시지: $commit_msg"
+  echo ""
+  exit 1
+fi
